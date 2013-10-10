@@ -72,11 +72,11 @@
 			a "Process" instance (either a "Component" or a "System") which shall be 
 			discoverable. -->
 		<rule context="/">
-			<assert test="count(sml:SensorML/sml:member) = 1">Error: station description must have exactly one
-				'member'.
+			<assert test="count(sml:SensorML/sml:member) = 1">
+				Error: station description must have exactly one 'member'.
 			</assert>
-			<assert test="count(sml:SensorML/sml:member/sml:System) = 1">Error: 'member' element must contain one 'System'
-				element.
+			<assert test="count(sml:SensorML/sml:member/sml:System) = 1">
+				Error: 'member' element must contain one 'System' element.
 			</assert>
 		</rule>
 
@@ -86,10 +86,11 @@
 			has become valid. The "System" has to contain a "position" element which 
 			defines the position of the station itself. -->
 		<rule context="//sml:System">
-			<assert test="sml:validTime">Error: 'validTime' element has to be present
+			<assert test="sml:validTime">
+				Error: 'validTime' element has to be present
 			</assert>
-			<assert test="sml:position/swe:Position">Error: 'sml:System/sml:position/swe:Position' has
-				to be present.
+			<assert test="sml:position/swe:Position">
+				Error: 'sml:System/sml:position/swe:Position' has to be present.
 			</assert>
 		</rule>
 
@@ -102,25 +103,25 @@
 			of the sensor. -->
 		<rule context="//sml:System">
 			<assert
-				test="count(sml:capabilities/swe:DataRecord/swe:field/swe:Envelope[@definition = 'urn:ogc:def:property:OGC:1.0:observedBBOX']) = 1">Error: one "swe:field" of a "swe:DataRecord" in a "sml:capabilities" has to contain a
-				"swe:Envelope" element with the definition
-				"urn:ogc:def:property:OGC:1.0:observedBBOX".
+				test="count(sml:capabilities/swe:DataRecord/swe:field/swe:Envelope[@definition = 'urn:ogc:def:property:OGC:1.0:observedBBOX']) = 1">
+				Error: one "swe:field" of a "swe:DataRecord" in a "sml:capabilities" has to contain a
+				"swe:Envelope" element with the definition "urn:ogc:def:property:OGC:1.0:observedBBOX".
 			</assert>
 		</rule>
 
 		<!-- A "position" element has to contain a "swe:Position" which uses the 
 			"referenceFrame" attribute to specify its spatial reference system. -->
 		<rule context="//sml:position/swe:Position">
-			<assert test="@referenceFrame">Error: 'referenceFrame' attribute has to be
-				present.
+			<assert test="@referenceFrame">
+				Error: 'referenceFrame' attribute has to be present.
 			</assert>
 		</rule>
 
 		<!-- The "swe:Position" element contains a "swe:location" which specifies 
 			at least 2 "swe:Vector/swe:coordinate/swe:Quantity" elements.. -->
 		<rule context="//sml:position/swe:Position/swe:location">
-			<assert test="count(swe:Vector/swe:coordinate/swe:Quantity) > 1">Error: 'swe:location' has to specify at least 2
-				'swe:Vector/swe:coordinate/swe:Quantity' elements.
+			<assert test="count(swe:Vector/swe:coordinate/swe:Quantity) > 1">
+				Error: 'swe:location' has to specify at least 2 'swe:Vector/swe:coordinate/swe:Quantity' elements.
 			</assert>
 		</rule>
 
@@ -130,13 +131,14 @@
 			"code" attribute defines the unit of the coordinate value -->
 		<rule
 			context="//sml:position/swe:Position/swe:location/swe:Vector/swe:coordinate/swe:Quantity">
-			<assert test="string-length(@axisID) > 0">Error: 'axisID' attribute has to be present and
-				its value has to be > 0.
+			<assert test="string-length(@axisID) > 0">
+				Error: 'axisID' attribute has to be present and its value has to be > 0.
 			</assert>
-			<assert test="swe:value">Error: 'swe:value' element has to be present.
+			<assert test="swe:value">
+				Error: 'swe:value' element has to be present.
 			</assert>
-			<assert test="swe:uom[@code]">Error: 'swe:uom' element and its "code" attribute
-				have to be present.
+			<assert test="swe:uom[@code]">
+				Error: 'swe:uom' element and its "code" attribute have to be present.
 			</assert>
 		</rule>
 
@@ -149,22 +151,24 @@
 			specify an "axisID" named "z" which refers to the z-axis (= altitude-axis) 
 			of the crs. -->
 		<rule context="//sml:position">
-			<assert
-				test="count(swe:Position/swe:location/swe:Vector/swe:coordinate/swe:Quantity[@axisID = 'x']) = 1">Error: one x-axis coordinate has to be specified.</assert>
-			<assert
-				test="count(swe:Position/swe:location/swe:Vector/swe:coordinate/swe:Quantity[@axisID = 'y']) = 1">Error: one y-axis coordinate has to be specified.</assert>
-			<assert
-				test="count(swe:Position/swe:location/swe:Vector/swe:coordinate/swe:Quantity[@axisID = 'z']) = 0
-                or count(swe:Position/swe:location/swe:Vector/swe:coordinate/swe:Quantity[@axisID = 'z']) = 1">Error: one z-axis coordinate may be specified.</assert>
+			<assert test="count(swe:Position/swe:location/swe:Vector/swe:coordinate/swe:Quantity[@axisID = 'x']) = 1">
+				Error: one x-axis coordinate has to be specified.
+			</assert>
+			<assert test="count(swe:Position/swe:location/swe:Vector/swe:coordinate/swe:Quantity[@axisID = 'y']) = 1">
+				Error: one y-axis coordinate has to be specified.
+			</assert>
+			<assert test="count(swe:Position/swe:location/swe:Vector/swe:coordinate/swe:Quantity[@axisID = 'z']) = 0
+					or count(swe:Position/swe:location/swe:Vector/swe:coordinate/swe:Quantity[@axisID = 'z']) = 1">
+				Error: one z-axis coordinate may be specified.
+			</assert>
 		</rule>
 
 		<!-- 'sml:component' must contain EITHER attribute 'xlink:href' OR child 
 			'sml:Component'. -->
 		<rule context="//sml:System/sml:components/sml:ComponentList/sml:component">
 			<!-- the following expression means: XOR -->
-			<assert
-				test="(@xlink:href and not(sml:Component)) or (not (@xlink:href) and sml:Component)">Error: 'sml:component' must contain EITHER attribute
-				'xlink:href' OR child 'sml:Component'
+			<assert test="(@xlink:href and not(sml:Component)) or (not (@xlink:href) and sml:Component)">
+				Error: 'sml:component' must contain EITHER attribute 'xlink:href' OR child 'sml:Component'
 			</assert>
 		</rule>
 	</pattern>
@@ -173,9 +177,8 @@
 		<!-- At least one classifier has to contain the definition "urn:ogc:def:classifier:OGC:1.0:sensorType". 
 			The value of its contained "Term" element states the type of the sensor. -->
 		<rule context="//sml:Component/sml:classification">
-			<assert
-				test="count(sml:ClassifierList/sml:classifier/sml:Term[@definition = 'urn:ogc:def:classifier:OGC:1.0:sensorType']) >= 1">Error: At least one classifier has to be of the type
-				'urn:ogc:def:classifier:OGC:1.0:sensorType'.
+			<assert test="count(sml:ClassifierList/sml:classifier/sml:Term[@definition = 'urn:ogc:def:classifier:OGC:1.0:sensorType']) >= 1">
+				Error: At least one classifier has to be of the type 'urn:ogc:def:classifier:OGC:1.0:sensorType'.
 			</assert>
 		</rule>
 	</pattern>
@@ -185,30 +188,20 @@
 		<!-- A "description", "keywords", "contact", "inputs" and "outputs" element 
 			has to be present. -->
 		<rule context="//sml:System">
-			<assert test="gml:description">Error: 'gml:description' element has to be
-				present
-			</assert>
-			<assert test="sml:keywords/sml:KeywordList">Error: 'KeywordList' element has to be present
-			</assert>
-			<assert test="sml:contact">Error: 'sml:contact' element has to be present
-			</assert>
+			<assert test="gml:description">Error: 'gml:description' element has to be present</assert>
+			<assert test="sml:keywords/sml:KeywordList">Error: 'KeywordList' element has to be present</assert>
+			<assert test="sml:contact">Error: 'sml:contact' element has to be present</assert>
 			<assert test="sml:inputs">Error: 'sml:inputs' has to be present.</assert>
 			<assert test="sml:outputs">Error: 'sml:outputs' has to be present.</assert>
-			<assert test="sml:classification">Error: 'sml:classification' has to be present.
-			</assert>
+			<assert test="sml:classification">Error: 'sml:classification' has to be present.</assert>
 		</rule>
 		<rule context="//sml:Component">
-			<assert test="gml:description">Error: 'gml:description' element has to be
-				present
-			</assert>
-			<assert test="sml:keywords/sml:KeywordList">Error: 'KeywordList' element has to be present
-			</assert>
-			<assert test="sml:contact">Error: 'sml:contact' element has to be present
-			</assert>
+			<assert test="gml:description">Error: 'gml:description' element has to be present.</assert>
+			<assert test="sml:keywords/sml:KeywordList">Error: 'KeywordList' element has to be present.</assert>
+			<assert test="sml:contact">Error: 'sml:contact' element has to be present.</assert>
 			<assert test="sml:inputs">Error: 'sml:inputs' has to be present.</assert>
 			<assert test="sml:outputs">Error: 'sml:outputs' has to be present.</assert>
-			<assert test="sml:classification">Error: 'sml:classification' has to be present.
-			</assert>
+			<assert test="sml:classification">Error: 'sml:classification' has to be present.</assert>
 		</rule>
 
 		<!-- Each "identifier/Term" element contained in the "IdentifierList" must 
@@ -216,8 +209,8 @@
 			identifier. -->
 		<rule
 			context="//sml:identification/sml:IdentifierList/sml:identifier/sml:Term">
-			<assert test="string-length(@definition) > 0">Error: 'definition' attribute has to be present
-				and its value has to be > 0.
+			<assert test="string-length(@definition) > 0">
+				Error: 'definition' attribute has to be present and its value has to be > 0.
 			</assert>
 		</rule>
 
@@ -230,16 +223,16 @@
 			of the human understandable name for the instance. -->
 		<rule context="//sml:identification">
 			<assert
-				test="count(sml:IdentifierList/sml:identifier/sml:Term[@definition = 'urn:ogc:def:identifier:OGC:1.0:uniqueID']) = 1">Error: one identifier has to be of the type
-				'urn:ogc:def:identifier:OGC:1.0:uniqueID'.
+					test="count(sml:IdentifierList/sml:identifier/sml:Term[@definition = 'urn:ogc:def:identifier:OGC:1.0:uniqueID']) = 1">
+				Error: one identifier has to be of the type 'urn:ogc:def:identifier:OGC:1.0:uniqueID'.
 			</assert>
 			<assert
-				test="count(sml:IdentifierList/sml:identifier/sml:Term[@definition = 'urn:ogc:def:identifier:OGC:1.0:longName']) = 1">Error: one identifier has to be of the type
-				'urn:ogc:def:identifier:OGC:1.0:longName'.
+					test="count(sml:IdentifierList/sml:identifier/sml:Term[@definition = 'urn:ogc:def:identifier:OGC:1.0:longName']) = 1">
+				Error: one identifier has to be of the type 'urn:ogc:def:identifier:OGC:1.0:longName'.
 			</assert>
 			<assert
-				test="count(sml:IdentifierList/sml:identifier/sml:Term[@definition = 'urn:ogc:def:identifier:OGC:1.0:shortName']) = 1">Error: one identifier has to be of the type
-				'urn:ogc:def:identifier:OGC:1.0:shortName'.
+					test="count(sml:IdentifierList/sml:identifier/sml:Term[@definition = 'urn:ogc:def:identifier:OGC:1.0:shortName']) = 1">
+				Error: one identifier has to be of the type 'urn:ogc:def:identifier:OGC:1.0:shortName'.
 			</assert>
 		</rule>
 
@@ -248,8 +241,8 @@
 			the component. -->
 		<rule context="//sml:Component/sml:identification">
 			<assert
-				test="count(sml:IdentifierList/sml:identifier/sml:Term[@definition = 'urn:ogc:def:identifier:OGC:parentSystemUniqueID']) = 1">Error: one identifier has to be of the type
-				'urn:ogc:def:identifier:OGC:parentSystemUniqueID'.
+					test="count(sml:IdentifierList/sml:identifier/sml:Term[@definition = 'urn:ogc:def:identifier:OGC:parentSystemUniqueID']) = 1">
+				Error: one identifier has to be of the type 'urn:ogc:def:identifier:OGC:parentSystemUniqueID'.
 			</assert>
 		</rule>
 
@@ -257,13 +250,11 @@
 		<!-- Classification -->
 		<!-- ~~~~~~~~~~~~~~ -->
 		<rule context="//sml:classification">
-			<assert
-				test="count(sml:ClassifierList/sml:classifier/sml:Term[@definition = 'urn:ogc:def:classifier:OGC:1.0:sensorType']) >= 1">
-				Error: one classifier for the sensorType classification scheme has to be given!
+			<assert	test="count(sml:ClassifierList/sml:classifier/sml:Term[@definition = 'urn:ogc:def:classifier:OGC:1.0:sensorType']) >= 1">
+				Error: one classifier for the 'sensorType' classification scheme has to be given!
 			</assert>
-			<assert
-				test="count(sml:ClassifierList/sml:classifier/sml:Term[@definition = 'urn:ogc:def:classifier:OGC:1.0:application']) >= 1">Error: one classifier for the intendedApplication
-				classification scheme has to be given!
+			<assert test="count(sml:ClassifierList/sml:classifier/sml:Term[@definition = 'urn:ogc:def:classifier:OGC:1.0:application']) >= 1">
+				Error: one classifier for the 'intendedApplication' classification scheme has to be given!
 			</assert>
 		</rule>
 
@@ -271,8 +262,8 @@
 			have a "definition" attribute. This attribute links to the semantics of the 
 			identifier. -->
 		<rule context="//sml:classifier/sml:Term">
-			<assert test="string-length(@definition) > 0">Error: 'definition' attribute has to be present 
-				and its value has to be > 0.
+			<assert test="string-length(@definition) > 0">
+				Error: 'definition' attribute has to be present and its value has to be > 0.
 			</assert>
 		</rule>
 
@@ -283,16 +274,16 @@
 			be used here to specify the capabilities of the "System". The child-element 
 			of each "swe:Field" element has to contain a "definition" attribute. -->
 		<rule context="//sml:capabilities/swe:DataRecord/swe:field">
-			<assert test="string-length(child::node()[@definition]) > 0">Error: 'definition' attribute has to be present 
-				and its value has to be > 0.
+			<assert test="string-length(child::node()[@definition]) > 0">
+				Error: 'definition' attribute has to be present and its value has to be > 0.
 			</assert>
 		</rule>
 		<!-- If the child-element of the "swe:Field" is a "swe:Quantity" it has 
 			to contain the "swe:uom" element which specifies the "code" attribute. -->
 		<rule
 			context="//sml:capabilities/swe:DataRecord/swe:field/swe:Quantity/swe:uom">
-			<assert test="string-length(@code) > 0">Error: 'code' attribute has to be present and its
-				value has to be > 0.
+			<assert test="string-length(@code) > 0">
+				Error: 'code' attribute has to be present and its value has to be > 0.
 			</assert>
 		</rule>
 
@@ -301,32 +292,32 @@
 		<!-- ~~~~~~ -->
 		<!-- Within a "contact" element the organization name has to be present. -->
 		<rule context="//sml:contact/sml:ResponsibleParty">
-			<assert test="sml:organizationName">Error: 'sml:organizationName' element has to be
-				present
+			<assert test="sml:organizationName">
+				Error: 'sml:organizationName' element has to be	present.
 			</assert>
 		</rule>
 
 		<!-- Each "input" contains a "swe:ObservableProperty" which uses the "definition"-attribute 
 			to specify the observed phenomenon. -->
 		<rule context="//sml:inputs/sml:InputList/sml:input">
-			<assert test="swe:ObservableProperty/@definition">Error: 'swe:ObservableProperty' has to contain
-				'definition' attribute.
+			<assert test="swe:ObservableProperty/@definition">
+				Error: 'swe:ObservableProperty' has to contain 'definition' attribute.
 			</assert>
 		</rule>
 
 		<!-- Each child-element of an "output" has to use the "definition"-attribute 
 			to specify the URN identifier of the observed phenomenon. -->
 		<rule context="//sml:outputs/sml:OutputList/sml:output">
-			<assert test="child::node()[@definition]">Error: child-node of 'output' has to contain
-				'definition' attribute.
+			<assert test="child::node()[@definition]">
+				Error: child-node of 'output' has to contain 'definition' attribute.
 			</assert>
 		</rule>
 
 		<!-- If the child-element of the output is a "swe:Quantity" it has to contain 
 			the "swe:uom" element which specifies the "code" attribute. -->
 		<rule context="//sml:outputs/sml:OutputList/sml:output/swe:Quantity">
-			<assert test="string-length(swe:uom/@code) > 0">Error: 'code' attribute has to be present and its
-				value has to be > 0.
+			<assert test="string-length(swe:uom/@code) > 0">
+				Error: 'code' attribute has to be present and its value has to be > 0.
 			</assert>
 		</rule>
 	</pattern>
